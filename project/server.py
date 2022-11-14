@@ -47,6 +47,7 @@ def authorize():
         'Content-Type' : 'application/x-www-form-urlencoded'
     }
 
+
     #response = requests.get("https://accounts.spotify.com/authorize?client_id="+CLIENT_ID+"&response_type=code&redirect_uri=127.0.0.1:5000/")
     response = requests.post("https://accounts.spotify.com/api/token", params=params,headers=headers)
     if(response.status_code==200):

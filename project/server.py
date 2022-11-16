@@ -176,7 +176,7 @@ def getDevices():
 @app.route('/me/player/play')
 def playSong():
     global deviceSelect
-    deviceSelect = (deviceSelect+1)%2
+    #deviceSelect = (deviceSelect+1)%2
     IDSecret = CLIENT_ID+':'+CLIENT_SECRET
     IDSecretEncoded = base64.b64encode(IDSecret.encode())
     headers = {
@@ -185,7 +185,7 @@ def playSong():
     }
     params = {
         'context_uri' : "spotify:album:3T4tUhGYeRNVUGevb0wThu",
-        'device_id' : DEVICES[deviceSelect]
+        'device_id' : PHONE_ID
     }
 
     response = requests.put("https://api.spotify.com/v1/me/player/play", params=params, headers=headers)
@@ -230,7 +230,7 @@ def pauseSong():
         'Content-Type' : 'application/json'
     }
     params = {
-        'device_id' : DEVICES[deviceSelect]
+        'device_id' : PHONE_ID
     }
 
     response = requests.put("https://api.spotify.com/v1/me/player/pause", params=params, headers=headers)

@@ -142,11 +142,7 @@ def refresh():
 
 
     #response = requests.get("https://accounts.spotify.com/authorize?client_id="+CLIENT_ID+"&response_type=code&redirect_uri=127.0.0.1:5000/")
-<<<<<<< HEAD
-    response = requests.get("https://accounts.spotify.com/search", params=params,headers=headers)
-=======
     response = requests.post("https://accounts.spotify.com/api/token", params=params,headers=headers)
->>>>>>> c3b658b63e67bc77c6fac8c3e23adbcf048fc3d2
     if(response.status_code==200):
         data = response.json()
         print(data)

@@ -26,7 +26,7 @@ called when a GET request is sent to the URL "http://0.0.0.0:[port]/mailbox"
 CLIENT_ID = "e26cfa66c29f45dbb775d2c83bb5c068"
 CODE = "AQDNKGIrvRMLoldeVxL1euBhPnRX4Bvw6QnTgrSs7hqjokGqvsFm8384nREY7kFwqF9J8m8poOEmh0z_XOteQifMdeLUOeylQJ_jZvPshTgeok9-IZbiSgkJ7E6P__pVawPD6nb4igEU5UxsQ0S9UnjEkhhdz8DaNsWdUP701-49Xpfk4R4-zYl2X3_3-cJ-BLFuljjAss-CKlb20dmW-1eRqQQqXgwkXEAN0vnMmrig5hWeGg_WgP4oXyU8i1XxdbyyY-JDgYCHrJ-iizuxQpdmuoygx4cz4u8Bn3i7Ec42DCkBaT32iPMVWw"
 CLIENT_SECRET = "036ab0fdff5340439baaa988cb917a2f"
-ACCESS_TOKEN = 'BQDCalMAjvlGcDfpb-tNHWWsmlDHO0nt2R2uml_k_LWeRRbsWNmwpkYj5OtxLOuGbMDJbwHgW02rrh2zMiRf_JFjj-SvEbcs0CnoNA03S8UNW7ASe_KfBeiTfj45FF8hd1Hs2QEzrhf6w3kRFYMVHhspsQOx1SKy27n73nO1oGIwAw3AZiNNi9eopD0G_ir7Tg'
+ACCESS_TOKEN = 'BQCxya_GTewlHUYA5opHrUIUZvGo1nBSBhFcO1P_x8UdbuEqij18Iln5ZhqXONMbRHedJwWl1ShaVnuTnGQjPwctj3JYxIZomOMqFv6f6Qc3Hn_faRR_kVnLNlu_iENAMC3qPxwF5b7M-HKYdd2DLEZySMXBDem8iwwl0bKdocCPqcaEtLlppsyjddi0I7AlDA'
 REFRESH_TOKEN = 'AQBddtd60GEeGMDRlzUY8yQUlARrEZ0bRL42h_iYDArGUZB2nPld7ydtoWGS9SJOPxqnA7zDe_MVD8HnhJXVkQv0eNuX764p8h95q1IJESK5LqHE6bmTY2sP36yEqb6TjqM'
 SONG_ID = "spotify:album:4uJ318DIOMiA4y9vg2dRwv"
 
@@ -40,7 +40,7 @@ deviceSelect = 0
 
 @app.route('/')
 def home():
-    return(render_template('home.html'))
+    return(render_template('app.html'))
 
 @app.route('/permissions')
 def getCode():

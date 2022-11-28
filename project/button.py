@@ -30,6 +30,7 @@ while True:
         if grovepi.digitalRead(button):
             # then device is switched play/paused
             deviceSelect = (deviceSelect + 1)%2
+            print(deviceSelect)
         if (deviceSelect==0):   # playing
             #response = requests.get('http://127.0.0.1:5000/me/player/play')
             while (deviceSelect==0):
@@ -66,7 +67,7 @@ while True:
             setRGB(136,8,8)
             # display "PAUSED" on LCD
             setText("Spotify\nPAUSED")
-        time.sleep(1)
+        time.sleep(.1)
 
     except IOError:
         print ("Error")

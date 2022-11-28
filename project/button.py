@@ -8,9 +8,9 @@ import grove_rgb_lcd as lcd
 
 # Connect the Grove Button to digital port D3
 button = 3
-# Connect the Grove Green LED to digital port D4
+# Connect the Grove Green LED to digital port D2
 led_green = 2
-# Connect the Grove Red LED to digital port D5
+# Connect the Grove Red LED to digital port D4
 led_red = 4
 
 #lcd.setRGB(0, 128, 0)
@@ -19,6 +19,8 @@ led_red = 4
 grovepi.pinMode(button,"INPUT")
 grovepi.pinMode(led_green,"OUTPUT")
 grovepi.pinMode(led_red,"OUTPUT")
+time.sleep(1)
+
 deviceSelect = 0
 
 while True:

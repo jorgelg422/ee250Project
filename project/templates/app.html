@@ -25,7 +25,7 @@
         color: #4D8323;
         
         ">EE250 Project</div>
-		<form name="Spotify" action="/me/player/pause" method="GET">
+		<form name="Play" action="/me/player/play" method="GET">
 			<input type="submit" name="submit" value="Play Song" style="/* Rectangle 1 */
 
             position: absolute;
@@ -37,6 +37,9 @@
             background: #D9D9D9;
             border-radius: 15px;
             "/>
+		</form>
+        
+        <form name="Pause" action="/me/player/pause" method="GET">
             <input type="submit" name="submit" value="Pause Song" style="/* Rectangle 2 */
 
             position: absolute;
@@ -47,7 +50,7 @@
             
             background: #D9D9D9;
             border-radius: 15px;
-            "/>
-		</form>
+            ">
+        </form>
 	</body>
 </html>

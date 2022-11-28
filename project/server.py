@@ -177,7 +177,7 @@ def getDevices():
 
     return(render_template('home.html'))
 
-@app.route('/me/player/play')
+@app.route('/me/player/play', ['GET'])
 def playSong():
     global deviceSelect
     #deviceSelect = (deviceSelect+1)%2
@@ -224,7 +224,7 @@ def transfer():
     print(myObj)
     return(render_template('home.html'))
 
-@app.route('/me/player/pause')
+@app.route('/me/player/pause', ['GET'])
 def pauseSong():
     global deviceSelect
     IDSecret = CLIENT_ID+':'+CLIENT_SECRET

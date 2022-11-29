@@ -30,7 +30,7 @@ COMPUTER_ID = "34d98f1a2e6bef776e931a035e35df0fd1008e24"
 DEVICES = [PHONE_ID, COMPUTER_ID]
 
 global deviceSelect 
-deviceSelect = 0
+deviceSelect = 1
 
 @app.route('/')
 def home():
@@ -162,6 +162,7 @@ def getDevices():
 @app.route('/me/player/play')
 def playSong():
     global deviceSelect
+    deviceSelect = 0
     #deviceSelect = (deviceSelect+1)%2
     IDSecret = CLIENT_ID+':'+CLIENT_SECRET
     IDSecretEncoded = base64.b64encode(IDSecret.encode())
@@ -211,6 +212,7 @@ def transfer():
 @app.route('/me/player/pause') 
 def pauseSong():
     global deviceSelect
+    deviceSelect = 1
     IDSecret = CLIENT_ID+':'+CLIENT_SECRET
     IDSecretEncoded = base64.b64encode(IDSecret.encode())
     headers = {
@@ -234,6 +236,7 @@ def pauseSong():
     return(render_template('home.html'))
 
 def main():
+    global deviceSelect
     # Connect the Grove Button to digital port D3
     button = 3
     # Connect the Grove Green LED to digital port D2
@@ -248,11 +251,11 @@ def main():
     grovepi.pinMode(led_red,"OUTPUT")
     time.sleep(1)
 
-    deviceSelect = 0
     greenOn = 0
     c = 0
 
     while True:
+        print(deviceSelect)
         try:
             if (deviceSelect==0):   # playing
                 #response = requests.get('http://127.0.0.1:5000/me/player/play')

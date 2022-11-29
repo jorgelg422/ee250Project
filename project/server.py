@@ -20,7 +20,7 @@ app = Flask('Spotify project')
 CLIENT_ID = "e26cfa66c29f45dbb775d2c83bb5c068"
 CODE = "AQDNKGIrvRMLoldeVxL1euBhPnRX4Bvw6QnTgrSs7hqjokGqvsFm8384nREY7kFwqF9J8m8poOEmh0z_XOteQifMdeLUOeylQJ_jZvPshTgeok9-IZbiSgkJ7E6P__pVawPD6nb4igEU5UxsQ0S9UnjEkhhdz8DaNsWdUP701-49Xpfk4R4-zYl2X3_3-cJ-BLFuljjAss-CKlb20dmW-1eRqQQqXgwkXEAN0vnMmrig5hWeGg_WgP4oXyU8i1XxdbyyY-JDgYCHrJ-iizuxQpdmuoygx4cz4u8Bn3i7Ec42DCkBaT32iPMVWw"
 CLIENT_SECRET = "036ab0fdff5340439baaa988cb917a2f"
-ACCESS_TOKEN = 'BQDbiSSKdDEC_EdRnkE_PECWfNHFV_X-FrqtbjbmI48RJ_RpQFA40O_9G5Rag6V4LrWGqrgRN7AByJNjxUmXf-QT8bFYw_GeZcpcWyi0iKOLqBqN0js87vvi-pOLtZ641yAwJg58R5tUEi4E_Owvgy_uie2un3ynOAhcYzlsKYwcXd-UjkX3TdWGzLkOIWZEFA'
+ACCESS_TOKEN = 'BQAljmkXOS9wkFi4HPeSW2Rp-WGHnjypFGkcwlYe1wOPm203FKWVe5rQQWH85vANxYmblWOAw1IYW8Iy1YADJBuYWxyyvXW36Kunk6JWPDw-VdKnmEDUVUUQGJ962hyC9ykaOdf622PjigRQg_-7lZDl42YrhDX-humZfjyRYjcXAYsG6GCXAaLfrz8W4S7p8g'
 REFRESH_TOKEN = 'AQBddtd60GEeGMDRlzUY8yQUlARrEZ0bRL42h_iYDArGUZB2nPld7ydtoWGS9SJOPxqnA7zDe_MVD8HnhJXVkQv0eNuX764p8h95q1IJESK5LqHE6bmTY2sP36yEqb6TjqM'
 global SONG_URI
 SONG_URI = "spotify:album:4uJ318DIOMiA4y9vg2dRwv"
@@ -37,6 +37,9 @@ deviceSelect = 1
 
 global tempo
 tempo = 149
+
+global SONG_NAME
+SONG_NAME = "Perfect"
 
 @app.route('/')
 def home():
@@ -86,6 +89,20 @@ def getAccessToken():
 
     return(render_template('home.html'))
 
+def getName(id):
+    global SONG_NAME
+
+    headers = {
+        'Authorization' : f"Bearer {ACCESS_TOKEN}",
+        'Content-Type' : 'application/json'
+    }
+    response = requests.get("https://api.spotify.com/v1/tracks/"+id, headers=headers)
+    if(response.status_code==200):
+        data = response.json()
+        myObj = json.dumps(data, indent=4)
+        print(data['name'])
+        SONG_NAME = data['name']
+
 def search(query):
     global SONG_URI
     IDSecret = CLIENT_ID+':'+CLIENT_SECRET
@@ -107,9 +124,10 @@ def search(query):
         data = response.json()
         data = data['tracks']['items'][0]
         myObj = json.dumps(data, indent=4)
-        print(myObj)
+        #print(myObj)
         SONG_URI = json.dumps(data['uri'])
-        print(SONG_URI)
+        #print(SONG_URI)
+        getName(data['id'])
         playSong()
         return(data['id'])
         #print(formatStr)
@@ -129,10 +147,10 @@ def getAnalysis():
         'Authorization' : f"Bearer {ACCESS_TOKEN}",
         'Content-Type' : 'application/json'
     }
-    print(request.form)
+    #print(request.form)
     SONG_ID = search(request.form.get("q"))
-    print("URI: "+SONG_URI)
-    print("SONG_ID: "+SONG_ID)
+    #print("URI: "+SONG_URI)
+    #print("SONG_ID: "+SONG_ID)
     response = requests.get("https://api.spotify.com/v1/audio-analysis/"+SONG_ID, headers=headers)
     if(response.status_code==200):
         data = response.json()
@@ -221,9 +239,9 @@ def playSong():
         #"context_uri" : "spotify:track:5T6bJp3XgwT0IaCfKMxmAu"
         "uris" : [SONG_URI]
     }
-    print("check")
-    print([SONG_URI])
-    print("check2")
+    #print("check")
+    #print([SONG_URI])
+    #print("check2")
 
     response = requests.put("https://api.spotify.com/v1/me/player/play", params=params, headers=headers, data=json.dumps(body))
     # print(response.status_code)
@@ -306,6 +324,7 @@ def main():
 
     while True:
         global tempo
+        global SONG_NAME
         print(deviceSelect)
         try:
             if (deviceSelect==0):   # playing
@@ -314,7 +333,7 @@ def main():
                     # red LED should be off
                     grovepi.digitalWrite(led_red,0)
                     # display title of selected song
-                    setText("song title")
+                    setText(SONG_NAME)
                     # blink green LED according to tempo of selected song
                     if (greenOn == 0):      # if it is off, turn it on
                         grovepi.digitalWrite(led_green,1)
